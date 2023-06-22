@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .side-menu {
-    @apply w-64 fixed left-0 top-12 h-full bg-gray-200 flex flex-col px-2 py-2;
+    @apply w-64 fixed left-0 top-12 h-full bg-gray-200 flex flex-col px-2 py-2 gap-y-1 overflow-y-auto;
 }
 
 .menu-legend {

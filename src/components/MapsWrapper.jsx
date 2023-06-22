@@ -5,7 +5,7 @@ import AdministrasiMaps from './AdministrasiMaps'
 import StreetMaps from './StreetMaps'
 import GoToLocation from './FlyToLocation'
 
-function MapsWrapper({showADM}) {
+function MapsWrapper({showADM,showSTR}) {
     const position = [-6.13, 106.82]
 
     return(
@@ -21,14 +21,18 @@ function MapsWrapper({showADM}) {
                     showADM && 
                     <AdministrasiMaps />
                 }
-                {/* <StreetMaps /> */}
+                {
+                    showSTR && 
+                    <StreetMaps />
+                }
             </MapContainer>
         </>
     )
 }
 
 const mapStateToProps = state => ({
-    showADM: state.showADM
+    showADM: state.showADM,
+    showSTR: state.showSTR
   });
 
 export default connect(mapStateToProps)(MapsWrapper);

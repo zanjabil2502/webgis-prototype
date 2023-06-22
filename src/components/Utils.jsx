@@ -1,4 +1,5 @@
 import dataADM from '../data/ADM_geojson.json'
+import dataStreet from '../data/Jalan_geojson.json'
 
 export function restructureDataPolygon(data) {
     const newArray = data.geometry.coordinates[0][0].map((query) => 
@@ -28,4 +29,7 @@ export function removeDuplicates(array) {
   }
 
 export const dataAdministrasi = removeDuplicates(dataADM.features.map((data) => 
-  data.properties.NAMOBJ).concat([]))
+    data.properties.NAMOBJ).concat([]))
+
+export const dataStreetType = removeDuplicates(dataStreet.features.map((data) => 
+    data.properties.REMARK).concat([]))

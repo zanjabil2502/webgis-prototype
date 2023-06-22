@@ -7,7 +7,6 @@ import dataADM from '../data/ADM_geojson.json'
 import { setLocationADM } from '../middleware/Reducer'
 
 function AdministrasiMaps({setLocationADM,indexLocADM}) {
-    console.log(indexLocADM)
     const data = dataADM.features
     const [tempIndexLoc, setTempIndexLoc] = useState(null)
     const colorPolygon = {
@@ -35,7 +34,7 @@ function AdministrasiMaps({setLocationADM,indexLocADM}) {
             })
             if (tempIndexLoc !== null) {
                 polygonRef.current[tempIndexLoc].current.setStyle({
-                    fillOpacity: 0.3,
+                    fillOpacity: 0.2,
                     opacity:0.8,
                 })
             }
@@ -43,7 +42,7 @@ function AdministrasiMaps({setLocationADM,indexLocADM}) {
         } else if (indexLocADM === null && polygonRef.current.length > 0 && tempIndexLoc !== null) {
             polygonRef.current[tempIndexLoc].current.closePopup()
             polygonRef.current[tempIndexLoc].current.setStyle({
-                fillOpacity: 0.3,
+                fillOpacity: 0.2,
                 opacity:0.8,
             })
         }
@@ -72,7 +71,7 @@ function AdministrasiMaps({setLocationADM,indexLocADM}) {
                                 mouseout: (e)=>{
                                     const layer = e.target
                                     layer.setStyle({
-                                        fillOpacity: 0.3,
+                                        fillOpacity: 0.2,
                                         opacity:0.8,
                                     })
                                 },

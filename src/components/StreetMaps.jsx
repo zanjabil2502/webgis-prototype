@@ -2,10 +2,9 @@ import { Polyline,Popup } from 'react-leaflet'
 import { restructureDataPolyline,removeDuplicates,dataSelection } from './Utils'
 import dataStreet from '../data/Jalan_geojson.json'
 import { useMemo } from 'react'
+import { connect } from 'react-redux';
 
-
-
-function StreetMaps() {
+function StreetMaps({showTypeSTR}) {
     const renderLokalStreet = useMemo(() => {
         const lokalStreet = dataSelection(dataStreet,'Jalan Lokal')
         const colorPolygon = {
@@ -15,8 +14,9 @@ function StreetMaps() {
         return (
             <>
             {
-                lokalStreet.map((query) => 
+                lokalStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -37,8 +37,9 @@ function StreetMaps() {
         return (
             <>
             {
-                setapakStreet.map((query) => 
+                setapakStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -59,8 +60,9 @@ function StreetMaps() {
         return (
             <>
             {
-                kolektorStreet.map((query) => 
+                kolektorStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -81,8 +83,9 @@ function StreetMaps() {
         return (
             <>
             {
-                arteriStreet.map((query) => 
+                arteriStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -103,8 +106,9 @@ function StreetMaps() {
         return (
             <>
             {
-                lainStreet.map((query) => 
+                lainStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -125,8 +129,9 @@ function StreetMaps() {
         return (
             <>
             {
-                tolTwoStreet.map((query) => 
+                tolTwoStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -147,8 +152,9 @@ function StreetMaps() {
         return (
             <>
             {
-                tolLayangStreet.map((query) => 
-                    <Polyline 
+                tolLayangStreet.map((query,index) => 
+                    <Polyline
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -169,8 +175,9 @@ function StreetMaps() {
         return (
             <>
             {
-                tolPemisahStreet.map((query) => 
+                tolPemisahStreet.map((query,index) => 
                     <Polyline 
+                        key={index}
                         pathOptions={colorPolygon} 
                         positions={restructureDataPolyline(query)}
                     >
@@ -184,16 +191,48 @@ function StreetMaps() {
 
     return (
        <>
-        {renderLokalStreet}
-        {renderSetapakStreet}
-        {renderKolektorStreet}
-        {renderArteriStreet}
-        {renderLainStreet}
-        {renderTolTwoStreet}
-        {renderTolLayangStreet}
-        {renderTolPemisahStreet}
+       {
+        showTypeSTR[0]&&
+        renderLokalStreet
+       }
+       {
+        showTypeSTR[1]&&
+        renderSetapakStreet
+       }
+       {
+        showTypeSTR[2]&&
+        renderKolektorStreet
+       }
+       {
+        showTypeSTR[3]&&
+        renderArteriStreet
+       }
+       {
+        showTypeSTR[4]&&
+        renderLainStreet
+       }
+       {
+        showTypeSTR[5]&&
+        renderTolTwoStreet
+       }
+       {
+        showTypeSTR[6]&&
+        renderTolLayangStreet
+       }
+       {
+        showTypeSTR[7]&&
+        renderTolPemisahStreet
+       }
        </>
     )
 }
 
-export default StreetMaps
+const mapStateToProps = state => ({
+    indexLocADM: state.indexLocADM,
+    locationADM: state.locationADM,
+    showADM: state.showADM,
+    showTypeSTR: state.showTypeSTR,
+    showSTR: state.showSTR
+  });
+
+export default connect(mapStateToProps)(StreetMaps);
