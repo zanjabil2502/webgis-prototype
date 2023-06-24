@@ -3,6 +3,7 @@ export const SET_INDEXLOC_ADM = 'Reducer/SET_INDEXLOC_ADM';
 export const SET_SHOW_ADM = 'Reducer/SET_SHOW_ADM';
 
 export const SET_SHOWTYPE_STR = 'Reducer/SET_SHOWTYPE_STR';
+export const SET_SHOWPOPUP_STR = 'Reducer/SET_SHOWPOPUP_STR';
 export const SET_SHOW_STR = 'Reducer/SET_SHOW_STR';
 
 export const setLocationADM = (objectArray) => ({
@@ -20,6 +21,11 @@ export const setShowTypeSTR = (objectArray) => ({
   showTypeSTR: objectArray
 });
 
+export const setShowPopupSTR = (objectArray) => ({
+  type: SET_SHOWPOPUP_STR,
+  showPopupSTR: objectArray
+});
+
 export const setShowADM = (boolean) => ({
   type: SET_SHOW_ADM,
   showADM: boolean
@@ -35,7 +41,8 @@ const initialState = {
   indexLocADM: null,
   showADM: true,
   showSTR: true,
-  showTypeSTR: [true,true,true,true,true,true,true,true]
+  showTypeSTR: [true,true,true,true,true,true,true,true],
+  showPopupSTR: [false,false,false,false,false,false,false,false]
 };
 
 // Definisikan reducer
@@ -65,6 +72,11 @@ export default function Reducer(state = initialState, action) {
       return {
         ...state,
         showTypeSTR: action.showTypeSTR
+      };
+    case SET_SHOWPOPUP_STR:
+      return {
+        ...state,
+        showPopupSTR: action.showPopupSTR
       };
     default:
       return state;

@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react"
-import { dataStreetType } from "./Utils"
+import { dataStreetType, dataTotalStreet } from "./Utils"
 import { connect } from 'react-redux';
-import { setShowTypeSTR,setShowSTR } from '../middleware/Reducer'
+import { setShowTypeSTR,setShowSTR,setShowPopupSTR } from '../middleware/Reducer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretDown,faCaretUp } from '@fortawesome/free-solid-svg-icons'
 
-
-function MenuStreet({setShowTypeSTR,setShowSTR}) {
+function MenuStreet({setShowTypeSTR,setShowSTR,setShowPopupSTR}) {
     const [isShow,setIsShow] = useState(false)
-    const [isHide,setIsHide] = useState(true)
-    const [showStreet,setShowStreet] = useState([true,true,true,true,true,true,true,true])
+    const [isHide,setIsHide] = useState(false)
+    const [showStreet,setShowStreet] = useState([false,false,false,false,false,false,false,false])
     const colorStreet = [
         'bg-[#0ec799]',
         'bg-[#0f77ab]',
@@ -23,6 +22,14 @@ function MenuStreet({setShowTypeSTR,setShowSTR}) {
     const handleCheckboxClick = (event) => {
         event.stopPropagation()
       };
+
+    function handleCloseMenu() {
+        setIsShow(!isShow)
+        if(isShow) {
+            const statePopup = [false,false,false,false,false,false,false,false]
+            setShowPopupSTR(statePopup)
+        }
+    }
 
     function handleShowStreet(index) {
         const dataNew = [...showStreet]
@@ -46,6 +53,15 @@ function MenuStreet({setShowTypeSTR,setShowSTR}) {
             setShowStreet(dataNew)
         }
     }
+
+    function handleShowPopupStreet(index) {
+        if(isHide) {
+            const statePopup = [false,false,false,false,false,false,false,false]
+            statePopup[index] = !statePopup[index]
+
+            setShowPopupSTR(statePopup)
+        }
+    }
     
     useEffect(() => {
         setShowSTR(isHide)
@@ -53,12 +69,11 @@ function MenuStreet({setShowTypeSTR,setShowSTR}) {
 
     useEffect(() => {
         setShowTypeSTR(showStreet)
-        console.log(showStreet)
     },[showStreet])
 
     return (
         <div className="w-full h-fit">
-            <div className={`w-full h-10 bg-white px-3 flex text-primary justify-between items-center shadow-md z-20 ${isShow? 'rounded-t-lg':'rounded-lg'} hover:bg-gray-100`} onClick={() => setIsShow(!isShow)}>
+            <div className={`w-full h-10 bg-white px-3 flex text-primary justify-between items-center shadow-md z-20 ${isShow? 'rounded-t-lg':'rounded-lg'} hover:bg-gray-100`} onClick={handleCloseMenu}>
                 <div className='w-fit h-full flex justify-center items-center gap-x-2'>
                     <input type='checkbox' checked={isHide} onChange={handleHideStreet} onClick={handleCheckboxClick} />
                     <span className="text-sm font-semibold flex">Area Jalan</span>
@@ -73,12 +88,13 @@ function MenuStreet({setShowTypeSTR,setShowSTR}) {
             <div className={`menu-legend ${isShow?'max-h-fit rounded-b-lg':'max-h-0'}`}>
                 {
                     dataStreetType.map((query,index)=>
-                    <div key={index} className="w-full h-12 px-2 bg-white flex justify-between items-center border-t hover:bg-gray-100">
-                        <div className={`w-4 h-4 ${colorStreet[index]}`} />
-                        <div className="text-sm text-black w-full max-w-[80%] flex justify-start items-center gap-x-2">
+                    <div key={index} onClick={()=>handleShowPopupStreet(index)} className={`w-full h-12 px-2 ${isHide? "bg-white text-black hover:bg-gray-100":"bg-gray-100 text-gray-500"} flex justify-between items-center gap-x-2 border-t`}>
+                        {/* <div className={`w-4 h-4 ${colorStreet[index]}`} /> */}
+                        <div className={`w-12 h-6 text-[9px] ${colorStreet[index]} text-white rounded-full text-center flex items-center justify-center`}>{dataTotalStreet[index]}</div>
+                        <div className="text-sm  w-full max-w-[80%] flex justify-start items-center gap-x-2">
                             <span>{query}</span>
                         </div>
-                        <input type='checkbox' checked={showStreet[index]} onChange={() => handleShowStreet(index)}/>
+                        <input type='checkbox' checked={showStreet[index]} disabled={isHide? false:true} onChange={() => handleShowStreet(index)}/>
                     </div>
                     )
                 }
@@ -91,8 +107,9 @@ const mapStateToProps = state => ({
     indexLocADM: state.indexLocADM,
     locationADM: state.locationADM,
     showADM: state.showADM,
-    showTypeSRT: state.showTypeSRT,
+    showTypeSTR: state.showTypeSTR,
+    showPopupSTR: state.showPopupSTR,
     showSTR: state.showSTR
   });
 
-export default connect(mapStateToProps, {setShowTypeSTR,setShowSTR})(MenuStreet);
+export default connect(mapStateToProps,{setShowTypeSTR,setShowSTR,setShowPopupSTR})(MenuStreet);

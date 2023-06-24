@@ -32,6 +32,9 @@ function AdministrasiMaps({setLocationADM,indexLocADM}) {
                 fillOpacity: 0.7,
                 opacity:0.8,
             })
+            setTimeout(() => {
+                polygonRef.current[indexLocADM].current.closePopup()
+              }, 4000);
             if (tempIndexLoc !== null) {
                 polygonRef.current[tempIndexLoc].current.setStyle({
                     fillOpacity: 0.2,
