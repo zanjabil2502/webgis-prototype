@@ -42,9 +42,9 @@ function MapsWrapper({showADM,showSTR}) {
                     <div className='w-full h-fit p-2 bg-white hover:bg-gray-100' onClick={(e)=>handleBoxClick(e,0)}>
                         <div className="w-full h-8 bg-[url('./assets/img/Type1.png')] bg-cover bg-bottom rounded-md" />
                     </div>
-                    <div className='w-full h-fit p-2 bg-white hover:bg-gray-100' onClick={(e)=>handleBoxClick(e,1)}>
+                    {/* <div className='w-full h-fit p-2 bg-white hover:bg-gray-100' onClick={(e)=>handleBoxClick(e,1)}>
                         <div className="w-full h-8 bg-[url('./assets/img/Type2.png')] bg-cover bg-bottom rounded-md" />
-                    </div>
+                    </div> */}
                     <div className='w-full h-fit p-2 bg-white hover:bg-gray-100' onClick={(e)=>handleBoxClick(e,2)}>
                         <div className="w-full h-8 bg-[url('./assets/img/Type3.png')] bg-cover bg-bottom rounded-md" />
                     </div>
